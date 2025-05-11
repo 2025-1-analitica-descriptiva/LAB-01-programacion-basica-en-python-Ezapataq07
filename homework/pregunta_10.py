@@ -6,6 +6,9 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from itertools import groupby
+
+
 def pregunta_10():
     """
     Retorne una lista de tuplas contengan por cada tupla, la letra de la
@@ -20,3 +23,13 @@ def pregunta_10():
 
 
     """
+    with open("files/input/data.csv", 'r') as file:
+        lines = file.readlines()
+        sequence = []
+        for line in lines:
+            columns = line.strip().split('\t')
+            sequence.append((columns[0], len(columns[3].split(',')), len(columns[4].split(','))))
+    
+    result = sequence
+
+    return result

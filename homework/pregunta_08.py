@@ -6,6 +6,9 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from itertools import groupby
+
+
 def pregunta_08():
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
@@ -27,3 +30,15 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    with open("files/input/data.csv", 'r') as file:
+        lines = file.readlines()
+        sequence = []
+        for line in lines:
+            columns = line.strip().split('\t')
+            sequence.append((int(columns[1]), columns[0]))
+    
+    result = []
+    for key, group in groupby(sorted(sequence, key=lambda x: x[0]), key=lambda x: x[0]):
+        values = list(set(value for _, value in group))
+        result.append((key, sorted(values, key=lambda x: x[0])))
+    return sorted(result, key=lambda x: x[0])

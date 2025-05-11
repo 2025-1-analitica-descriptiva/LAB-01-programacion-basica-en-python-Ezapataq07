@@ -35,12 +35,12 @@ def pregunta_06():
         for line in lines:
             columns = line.strip().split('\t')
             key_values = columns[4].strip().split(',')
-            sequence.append((l.split(':')[0], int(l.split(':')[1]) for l in key_values))
+            sequence.extend((l.split(':')[0], int(l.split(':')[1])) for l in key_values)
     
     result = []
     for key, group in groupby(sorted(sequence, key=lambda x: x[0]), key=lambda x: x[0]):
         values = [value for _, value in group]
         min_val = min(values)
         max_val = max(values)
-        result.append((key, max_val, min_val))
+        result.append((key, min_val, max_val))
     return sorted(result, key=lambda x: x[0])
